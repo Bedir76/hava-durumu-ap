@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yüz Tanıma Sistemi</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
-  <script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <title>Kamera Testi</title>
 </head>
 <body>
-  <h1 id="title">Yüz Tanıma Sistemi</h1>
+  <h1>Kamera Testi</h1>
+  <video id="video" autoplay muted playsinline style="width: 100%; max-width: 600px;"></video>
 
-  <div class="controls">
-    <button id="darkToggle">🌙 Tema</button>
-    <button id="saveBtn">📸 Fotoğrafı Kaydet</button>
-    <select id="langSelect">
-      <option value="tr">Türkçe</option>
-      <option value="en">English</option>
-    </select>
-    <p id="faceCount">Yüz sayısı: 0</p>
-  </div>
+  <script>
+    async function setupCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.getElementById('video');
+        video.srcObject = stream;
+        video.play();
+      } catch (err) {
+        alert("Kamera erişimi başarısız: " + err.message);
+      }
+    }
 
-  <div class="container">
-    <video id="video" autoplay muted playsinline></video>
-    <canvas id="overlay"></canvas>
-  </div>
+    setupCamera();
+  </script>
 </body>
 </html>
